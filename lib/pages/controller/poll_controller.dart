@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:polls_front/core/domain/entities/poll_entity.dart';
 import 'package:polls_front/core/domain/repositories/poll_repository.dart';
@@ -12,6 +13,15 @@ class PollController {
 
   final state = signal<PollStates>(Loading());
   final selectedOption = signal<Option?>(null);
+
+  final titleCtl =
+      signal<TextEditingController>(TextEditingController(text: ''));
+  final optionsCtl = signal<List<TextEditingController>>([
+    TextEditingController(text: ''),
+    TextEditingController(text: ''),
+    TextEditingController(text: ''),
+    TextEditingController(text: ''),
+  ]);
 
   Future<void> load() async {
     state.set(Loading());

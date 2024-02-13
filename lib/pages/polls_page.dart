@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:polls_front/pages/controller/poll_controller.dart';
+import 'package:polls_front/pages/create_poll_page.dart';
 import 'package:polls_front/pages/poll_detail_page.dart';
 import 'package:signals/signals_flutter.dart';
 
@@ -26,6 +27,23 @@ class _PollsPageState extends State<PollsPage> {
     final state = controller.state.watch(context);
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () async {
+          final result = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CreatePollPage(
+                controller: controller,
+              ),
+            ),
+          ) as bool?;
+
+          if (result == true) {
+            controller.load();
+          }
+        },
+      ),
       appBar: AppBar(
           title: const Text('Vote on Polls'),
           leading: IconButton(

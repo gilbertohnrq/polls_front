@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:injectable/injectable.dart';
 import 'package:polls_front/core/data/poll_data_source/poll_data_source.dart';
 import 'package:polls_front/core/domain/entities/poll_entity.dart';
@@ -22,6 +24,8 @@ class PollsWebSource implements PollsDataSource {
 
   @override
   Future<void> createPoll(PollEntity poll) async {
+    final teste = poll.toJson();
+    log(teste.toString());
     await client.post('/polls', data: poll.toJson());
   }
 

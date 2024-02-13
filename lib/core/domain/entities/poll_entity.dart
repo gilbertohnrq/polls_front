@@ -1,11 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 class PollEntity {
   final String id;
   final String title;
   final List<Option> options;
 
-  PollEntity({required this.id, required this.title, required this.options});
+  PollEntity({this.id = '', required this.title, required this.options});
 
   factory PollEntity.empty() {
     return PollEntity(
@@ -39,7 +37,7 @@ class Option {
   final String title;
   int votes;
 
-  Option({required this.id, required this.title, required this.votes});
+  Option({this.id = '', required this.title, required this.votes});
 
   factory Option.fromJson(Map<String, dynamic> json) {
     return Option(
@@ -49,12 +47,8 @@ class Option {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'votes': votes,
-    };
+  String toJson() {
+    return title;
   }
 
   @override
