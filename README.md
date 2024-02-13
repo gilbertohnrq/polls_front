@@ -1,16 +1,19 @@
-# polls_front
+# App de Enquetes Flutter
 
-A new Flutter project.
+Um aplicativo Flutter projetado para interagir com uma API de Enquetes (Polls). Os usuários podem visualizar todas as enquetes disponíveis, votar em sua enquete preferida e acompanhar os resultados em tempo real por meio de WebSockets. O projeto foi desenvolvido com o objetivo de explorar e estudar diversas tecnologias e funcionalidades do ecossistema Dart e Flutter, incluindo o uso de Signals, WebSockets, funcionalidades do Dart 3 como o novo operador `switch` case e pattern matching, além do pacote `injectable` para injeção de dependência.
 
-## Getting Started
+## Características
 
-This project is a starting point for a Flutter application.
+- **Visualização de Enquetes**: Lista todas as enquetes disponíveis consumidas através de uma API REST.
+- **Votação**: Permite que os usuários votem em sua enquete favorita.
+- **Resultados em Tempo Real**: Utiliza WebSockets para atualizar e exibir os resultados das enquetes em tempo real.
+- **Exploração do Dart 3**: Aplica novas funcionalidades do Dart 3, como o aprimorado `switch` case e pattern matching.
+- **Injeção de Dependência**: Implementa o pacote `injectable` para uma gestão eficiente de dependências.
 
-A few resources to get you started if this is your first Flutter project:
+## Tecnologias Utilizadas
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Flutter**: Framework para desenvolvimento de interfaces de usuário tanto para mobile quanto para web.
+- **Dart**: Linguagem de programação otimizada para desenvolvimento Flutter, aqui utilizada em sua versão 3.
+- **Signals**: Gerência de estado.
+- **WebSocket**: Para recebimento de dados em tempo real.
+- **Injectable**: Pacote para injeção de dependência, facilitando a gestão de dependências no projeto.
