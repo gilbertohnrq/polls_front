@@ -28,7 +28,8 @@ class _PollDetailPageState extends State<PollDetailPage> {
   void initState() {
     super.initState();
     _channel = WebSocketChannel.connect(
-      Uri.parse('ws://192.168.0.120:3333/polls/${widget.poll.id}/results'),
+      Uri.parse(
+          'ws://polls-api-126y.onrender.com/polls/${widget.poll.id}/results'),
     );
 
     _broadcastStream = _channel.stream.asBroadcastStream();

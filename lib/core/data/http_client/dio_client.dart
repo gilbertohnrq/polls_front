@@ -5,7 +5,7 @@ import 'package:polls_front/core/data/http_client/http_client.dart';
 @Injectable(as: HttpClient)
 class DioClient implements HttpClient {
   final dio = Dio(
-    BaseOptions(baseUrl: 'http://192.168.0.120:3333'),
+    BaseOptions(baseUrl: 'https://polls-api-126y.onrender.com'),
   );
 
   @override
