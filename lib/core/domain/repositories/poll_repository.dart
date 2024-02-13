@@ -24,6 +24,33 @@ final class PollsRepository {
       return left(PollsGetFailure(stackTrace: s));
     }
   }
+
+  Future<RepositoryResponse<void>> voteOnPoll(
+      String pollId, String optionId) async {
+    try {
+      await dataSource.voteOnPoll(pollId, optionId);
+      return right(null);
+    } on SocketException catch (e, s) {
+      log(e.toString(), stackTrace: s);
+      return left(ConnectionFailure(stackTrace: s));
+    } catch (e, s) {
+      log(e.toString(), stackTrace: s);
+      return left(PollsPostFailure(stackTrace: s));
+    }
+  }
+
+  Future<RepositoryResponse<void>> createPoll(PollEntity poll) async {
+    try {
+      await dataSource.createPoll(poll);
+      return right(null);
+    } on SocketException catch (e, s) {
+      log(e.toString(), stackTrace: s);
+      return left(ConnectionFailure(stackTrace: s));
+    } catch (e, s) {
+      log(e.toString(), stackTrace: s);
+      return left(PollsPostFailure(stackTrace: s));
+    }
+  }
 }
 
 final class PollsGetFailure extends Failure {
@@ -34,5 +61,16 @@ final class PollsGetFailure extends Failure {
   @override
   String text(BuildContext context) {
     return 'An error occurred while trying to get the polls, please try again later.';
+  }
+}
+
+final class PollsPostFailure extends Failure {
+  const PollsPostFailure({super.stackTrace})
+      : super(
+            'An error occurred while trying to post the poll, please try again later.');
+
+  @override
+  String text(BuildContext context) {
+    return 'An error occurred while trying to post the poll, please try again later.';
   }
 }

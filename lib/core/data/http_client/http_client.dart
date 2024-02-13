@@ -1,5 +1,6 @@
 abstract interface class HttpClient {
   Future<HttpResponse> get(String url, {Map<String, String>? query});
+  Future<HttpResponse> post(String url, {dynamic data});
 }
 
 class HttpResponse {

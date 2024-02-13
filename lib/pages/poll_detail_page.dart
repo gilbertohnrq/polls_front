@@ -2,11 +2,18 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:polls_front/core/domain/entities/poll_entity.dart';
+import 'package:polls_front/pages/controller/poll_controller.dart';
+import 'package:signals/signals_flutter.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class PollDetailPage extends StatefulWidget {
-  const PollDetailPage({super.key, required this.poll});
+  const PollDetailPage({
+    super.key,
+    required this.controller,
+    required this.poll,
+  });
 
+  final PollController controller;
   final PollEntity poll;
 
   @override
@@ -21,8 +28,7 @@ class _PollDetailPageState extends State<PollDetailPage> {
   void initState() {
     super.initState();
     _channel = WebSocketChannel.connect(
-      Uri.parse(
-          'ws://192.168.0.120:3333/polls/03eed1b9-5d72-436d-8941-922ac4a763dc/results'),
+      Uri.parse('ws://192.168.0.120:3333/polls/${widget.poll.id}/results'),
     );
 
     _broadcastStream = _channel.stream.asBroadcastStream();
@@ -48,19 +54,28 @@ class _PollDetailPageState extends State<PollDetailPage> {
       body: Card(
         child: Column(
           children: [
-            for (var option in widget.poll.options)
-              Row(
-                children: [
-                  Checkbox(
-                    value: false,
-                    onChanged: (value) {},
-                  ),
-                  const SizedBox(width: 16),
-                  Text(option.title),
-                  const Spacer(),
-                  SizedBox(
-                    width: 50,
-                    child: StreamBuilder(
+            for (final option in widget.poll.options)
+              InkWell(
+                onTap: () {
+                  widget.controller.voteOnPoll(widget.poll.id, option);
+                },
+                child: Row(
+                  children: [
+                    Checkbox(
+                      value: widget.controller.selectedOption.watch(context) ==
+                          option,
+                      onChanged: (value) {
+                        if (value == true) {
+                          widget.controller.voteOnPoll(widget.poll.id, option);
+                        }
+                      },
+                    ),
+                    const SizedBox(width: 16),
+                    Text(option.title),
+                    const Spacer(),
+                    SizedBox(
+                      width: 50,
+                      child: StreamBuilder(
                         stream: _broadcastStream,
                         builder: (context, snapshot) {
                           int votes = 0;
@@ -73,9 +88,11 @@ class _PollDetailPageState extends State<PollDetailPage> {
                           }
 
                           return Text('$votes');
-                        }),
-                  ),
-                ],
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
           ],
         ),

@@ -16,4 +16,13 @@ class DioClient implements HttpClient {
       data: response.data,
     );
   }
+
+  @override
+  Future<HttpResponse> post(String url, {data}) async {
+    final response = await dio.post(url, data: data);
+    return HttpResponse(
+      statusCode: response.statusCode,
+      data: response.data,
+    );
+  }
 }

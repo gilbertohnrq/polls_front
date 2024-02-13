@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 class PollEntity {
   final String id;
   final String title;
@@ -26,7 +28,6 @@ class PollEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'title': title,
       'options': options.map((e) => e.toJson()).toList(),
     };
@@ -55,4 +56,14 @@ class Option {
       'votes': votes,
     };
   }
+
+  @override
+  bool operator ==(covariant Option other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

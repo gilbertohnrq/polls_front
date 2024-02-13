@@ -51,6 +51,7 @@ class _PollsPageState extends State<PollsPage> {
                       MaterialPageRoute(
                         builder: (context) => PollDetailPage(
                           poll: state.polls[index],
+                          controller: controller,
                         ),
                       ),
                     ) as bool;
