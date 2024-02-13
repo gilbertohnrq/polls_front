@@ -47,8 +47,18 @@ class PollController {
     final result = await _repository.createPoll(poll);
     result.fold(
       (err) => state.set(Error(err)),
-      (data) => load(),
+      (data) {
+        resetControllers();
+        return load();
+      },
     );
+  }
+
+  void resetControllers() {
+    titleCtl.value.clear();
+    for (var element in optionsCtl.value) {
+      element.clear();
+    }
   }
 }
 
